@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  {{>links}}
+</head>
+
+<body>
+  {{>header}}
+
+   {{>adminAside}}
+<div class="content">
+  
+
+  {{#if success}}
+  <div class="alert alert-success alert-dismissible successAlert" role="alert">
+    <button type="button" class="close" data-dismiss="alert">
+      <i class="fa fa-times"></i>
+    </button>
+    <strong>Success !</strong>{{success}}
+  </div>
+  {{/if}}
+
+  <button class="btn btn-outline-primary" style="margin-left:130px;margin-top:50px" data-toggle="modal"
+    data-target="#addArticle">Add new</button>
+  <!-- Modal -->
+  <div class="modal fade" id="addArticle" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Article</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="/addArticle" method="post" enctype="multipart/form-data">
+          <div class="modal-body">
+            <div class="form-group">
+              <label for=""> Title :- </label>
+              <input type="text" class="form-control" name="title" id="title" aria-describedby="helpId" placeholder="">
+            </div>
+            <div class="form-group">
+              <label for=""> Author :- </label>
+              <input type="text" class="form-control" name="author" id="author" aria-describedby="helpId" placeholder="">
+            </div>
+            <div class="form-group">
+              <label for=""> Description :- </label>
+              <input type="text" class="form-control" name="desc" id="desc" aria-describedby="helpId" placeholder="">
+            </div>
+            <div class="form-group">
+              <label for=""> Image :- </label>
+              <input type="file" class="form-control" name="image" id="image" aria-describedby="helpId" placeholder="">
+            </div>
+            <div class="form-group">
+              <label for=""> Category :- </label>
+              <select name="category_id" class="form-control">
+                {{#categorys}}
+                 <option value="{{_id}}">{{name}}</option>
+                 {{/categorys}}
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <center>
+    <table class="table col-md-10" id="tblData">
+      <thead>
+        <tr>
+          <th> Title </th>
+          <th> Author </th>
+          <th> Description </th>
+          {{!-- <th> Image </th> --}}
+          <th> Category </th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#articles}}
+        <tr>
+          <td> {{title}} </td>
+          <td> {{author}} </td>
+          <td> {{description}} </td>
+          <td> <img src="/uploads/{{image}}"> </td>
+          <td>
+              {{category_id}} 
+            </td>
+          <td> <a class="btn btn-outline-danger" href="/deleteArticle/{{_id}}"> Delete </a> </td>
+        </tr>
+        {{/articles}}
+      </tbody>
+    </table>
+  </center>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="/js/category.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
