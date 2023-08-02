@@ -8,15 +8,14 @@
       </div>
       <div class="menu">
         <ul class="menu1">
-          {{#if user}}
-          <li><a href="/" class="active">Home</a></li>
+            <li><a href="/" class="active">Home</a></li>
           <li><a href="#" class="">About</a></li>
+            <li><a href="/home_artical" class="">Articals</a></li>
           <li><a href="/contectus" class="">Contact</a></li>
+
+          {{#if user}}
           <li><a href="/logout" class="">Logout</a></li>
           {{else}}
-          <li><a href="/" class="active">Home</a></li>
-          <li><a href="#" class="">About</a></li>
-          <li><a href="/contectus" class="">Contact</a></li>
           <li><a href="/login" class="">Login</a></li>
           <li><a href="/signup" class="">Sign Up</a></li>
           {{/if}}
