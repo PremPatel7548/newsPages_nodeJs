@@ -39,5 +39,5 @@ var upload = multer({
 }).single("image");
 
 app.listen(port,()=>{
-    console.log(`Server running on port no ${port}`);
+    console.log(`Server running on port no http://localhost:${port}`);
 });
