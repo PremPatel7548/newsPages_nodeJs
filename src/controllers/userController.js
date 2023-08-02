@@ -1,7 +1,8 @@
 const User = require('../models/userModel');
 const bcrypt = require('bcryptjs');
 const session = require('express-session');
-
+const Category = require('../models/categoryModel');
+const Article = require('../models/articleModel');
 const viewHome = (req,res)=>{
     res.render('index',{
         user:session.username
@@ -106,6 +107,21 @@ const logout = async(req,res)=>{
     }
 }
 
+const viewArticle = async (req, res) => {
+    try {
+      const articles = await Article.find().populate('category_id', 'name');
+      console.log(articles);
+      res.render('Articals', { Artical: articles });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Error fetching articles.');
+    }
+  };
+
+//   const particularCategories_artical = async(req,res)=>{
+//       const  category_id = req.body.cat_id ; 
+//       const particular 
+//   }
 module.exports = {
     viewHome,
     viewContect,
@@ -113,5 +129,6 @@ module.exports = {
     viewSignUp,
     signup,
     login,
-    logout
+    logout,
+    viewArticle
 }
