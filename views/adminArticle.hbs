@@ -86,9 +86,9 @@
           <td> {{title}} </td>
           <td> {{author}} </td>
           <td> {{description}} </td>
-          <td> <img src="/uploads/{{image}}"> </td>
+          <td> <img src="/uploads/{{image}}" width="100px"> </td>
           <td>
-              {{category_id}} 
+              {{category_id.name}}
             </td>
           <td> <a class="btn btn-outline-danger" href="/deleteArticle/{{_id}}"> Delete </a> </td>
         </tr>

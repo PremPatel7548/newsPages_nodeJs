@@ -80,12 +80,8 @@ const editCategory = async (req,res)=>{
 
 const viewArticle = async (req,res)=>{
     try{
-        const categorys = await Category.find();
-        const articles = await Article.find();
-        if(categorys)
-        {
-            res.render('adminArticle',{categorys : categorys,articles:articles});
-        }
+        const articles = await Article.find().populate('category_id','name');
+            res.render('adminArticle',{articles:articles});
     }
     catch(err)
     {
