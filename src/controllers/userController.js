@@ -110,13 +110,35 @@ const logout = async(req,res)=>{
 const viewArticle = async (req, res) => {
     try {
       const articles = await Article.find().populate('category_id', 'name');
+      const category = await Category.find();
       console.log(articles);
-      res.render('Articals', { Artical: articles });
+      res.render('Articals', { 
+        Artical: articles,
+        category: category,
+        checkArtical: "artical",
+    });
     } catch (error) {
       console.error(error);
       res.status(500).send('Error fetching articles.');
     }
   };
+
+  const showSearchArticle = async (req,res) => {
+    try {
+        const cat_id = req.params.id;
+        const articles = await Article.find({ category_id: cat_id }).populate('category_id', 'name');
+        const category = await Category.find();
+        console.log(articles);
+        res.render('Articals', { 
+            searchArtical: articles,
+            searchCategory: category,
+            checkSearchArtical: "searchArtical",
+        });
+      } catch (error) {
+        console.error(error);
+        res.status(500).send('Error fetching articles.');
+      }
+  }
 
 //   const particularCategories_artical = async(req,res)=>{
 //       const  category_id = req.body.cat_id ; 
@@ -130,5 +152,6 @@ module.exports = {
     signup,
     login,
     logout,
-    viewArticle
+    viewArticle,
+    showSearchArticle
 }

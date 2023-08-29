@@ -8,78 +8,103 @@
 <body>
   {{>header}}
 
-   {{>adminAside}}
-<div class="content">
-  
-<!--  Main heading  -->
-  <div class="container">
-    <header>
-    <h1>Welcome Admin</h1>
-    <span>Get an overview of your Category</span>
-    </header>
-  </div>  
+  {{>adminAside}}
+  <div class="content">
 
-  {{#if success}}
-  <div class="alert alert-success alert-dismissible successAlert" role="alert">
-    <button type="button" class="close" data-dismiss="alert">
-      <i class="fa fa-times"></i>
-    </button>
-    <strong>Success !</strong>{{success}}
-  </div>
-  {{/if}}
+    <!--  Main heading  -->
+    <div class="container">
+      <header>
+        <h1>Welcome Admin</h1>
+        <span>Get an overview of your Category</span>
+      </header>
+    </div>
 
-  <button class="btn btn-outline-primary" style="margin-left:130px;margin-top:50px" data-toggle="modal"
-    data-target="#addCategory">Add new</button>
-  <!-- Modal -->
-  <div class="modal fade" id="addCategory" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Add Category</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <form action="/Category" method="post">
-          <div class="modal-body">
-            <div class="form-group">
-              <label for="">Category Name :- </label>
-              <input type="text" class="form-control" name="cname" id="cname" aria-describedby="helpId" placeholder="">
+    {{#if success}}
+    <div class="alert alert-success alert-dismissible successAlert" role="alert">
+      <button type="button" class="close" data-dismiss="alert">
+        <i class="fa fa-times"></i>
+      </button>
+      <strong>Success !</strong>{{success}}
+    </div>
+    {{/if}}
+
+    <button class="btn btn-outline-primary" style="margin-left:130px;margin-top:50px" data-toggle="modal"
+      data-target="#addCategory">Add new</button>
+    <!-- Modal -->
+    <div class="modal fade" id="addCategory" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add Category</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form action="/Category" method="post">
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="">Category Name :- </label>
+                <input type="text" class="form-control" name="cname" id="cname" aria-describedby="helpId"
+                  placeholder="">
+              </div>
             </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save</button>
-          </div>
-        </form>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
+    
+    <div class="row">
+    <form action="/Category" method="get" style="margin-left:20%">
+      <input type="text" name="search" id="search" value="{{search}}">
+      <button type="submit" class="btn btn-success">Search</button>
+    </form>
+    <a href="/Category" style="margin-left: 10px;margin-top: 7px;"><button class="btn btn-primary">All Data</button></a>
+    </div>
+    <center>
+      <table class="table col-md-10" id="tblData">
+        <thead>
+          <tr>
+            <th>___Name___</th>
+            <th>Created On</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#categorys}}
+          <tr>
+            <td style="display: none;" class="categoryID"> {{_id}} </td>
+            <td class="category"> {{name}} </td>
+            <td> {{createdOn}} </td>
+            <td class="tdAction"> <a class="btn btn-outline-danger" href="/deleteCategory/{{_id}}"> Delete </a>
+              <button class="btn btn-outline-warning btn-edit"> Edit </button>
+              <!-- Modal -->
   </div>
-  <center>
-    <table class="table col-md-10" id="tblData">
-      <thead>
-        <tr>
-          <th>___Name___</th>
-          <th>Created On</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#categorys}}
-        <tr>
-          <td style="display: none;" class="categoryID"> {{_id}} </td>
-          <td class="category"> {{name}} </td>
-          <td> {{createdOn}} </td>
-          <td class="tdAction"> <a class="btn btn-outline-danger" href="/deleteCategory/{{_id}}"> Delete </a>
-            <button class="btn btn-outline-warning btn-edit"> Edit </button>
-            <!-- Modal -->
-            </div>
-          </td>
-        </tr>
-        {{/categorys}}
-      </tbody>
-    </table>
+  </td>
+  </tr>
+  {{/categorys}}
+  </tbody>
+  </table>
+  <br>
+
+<div class="pagination">
+  {{#if (gt totalPages 1)}}
+    {{#if (gt currentPage 1)}}
+      <a href="/Category?page={{sub currentPage 1}}">Previous</a>
+    {{/if}}
+    
+    {{!-- <span>Page {{currentPage}} of {{totalPages}}</span>
+    
+    {{#if (lt currentPage totalPages)}}
+      <a href="/Category?page={{add currentPage 1}}">Next</a>
+    {{/if}} --}}
+  {{/if}}
+</div>
+
   </center>
 
   <!-- Optional JavaScript -->

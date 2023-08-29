@@ -1,4 +1,5 @@
 const express = require('express');
+const exphbs = require('express-handlebars');
 const app = express();
 const path = require('path');
 const hbs = require('hbs');
@@ -7,7 +8,10 @@ const multer = require('multer');
 const port = 8000;
 // const cookieParser = require("cookie-parser");
 const session = require('express-session');
+const { helpers } = require('handlebars');
 require('./src/database/connection');
+const options = require("just-handlebars-helpers/lib/helpers/html");
+// const helpers = require('./component/hbshelpers');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -20,8 +24,26 @@ app.use(session({
     saveUninitialized:true,
     resave: false 
 }));
-// app.use(cookieParser());
 
+var hbsHelpers = exphbs.create({
+    extname: '.hbs',
+    defaultLayout: '',
+    // Add the runtime option to disable prototype access check
+    // helpers:require('./component/hbshelpers'),
+  runtimeOptions: {
+    allowProtoPropertiesByDefault: true,
+    allowProtoMethodsByDefault: true,
+  }
+});
+app.engine('.hbs', hbsHelpers.engine);
+
+hbsHelpers.handlebars.registerHelper('gt', function (value, threshold, options) {
+    if (value > threshold) {
+      return options.fn(this);
+    }
+  });
+
+app.set(path.join(__dirname,'/views'));
 app.set('view engine','hbs');
 hbs.registerPartials(partials_path);
 
