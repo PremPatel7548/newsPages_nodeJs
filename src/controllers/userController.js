@@ -70,7 +70,7 @@ const login = async (req,res)=>{
         if(isMatch)
         {
             session.username = user.name;
-            console.log(session.username);
+            // console.log(session.username);
             if(user.name == "Admin")
             {
                 res.redirect('/Category');
@@ -111,7 +111,7 @@ const viewArticle = async (req, res) => {
     try {
       const articles = await Article.find().populate('category_id', 'name');
       const category = await Category.find();
-      console.log(articles);
+    //   console.log(articles);
       res.render('Articals', { 
         Artical: articles,
         category: category,
@@ -128,7 +128,7 @@ const viewArticle = async (req, res) => {
         const cat_id = req.params.id;
         const articles = await Article.find({ category_id: cat_id }).populate('category_id', 'name');
         const category = await Category.find();
-        console.log(articles);
+        // console.log(articles);
         res.render('Articals', { 
             searchArtical: articles,
             searchCategory: category,

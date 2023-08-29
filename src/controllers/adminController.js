@@ -16,16 +16,16 @@ var upload = multer({
 }).single("image");
 
 const showCategory = async (req, res) => {
-    const perPage = 5; // Number of items per page
-    const page = req.query.page || 1; // Current page (default to 1)
+    // const perPage = 5; // Number of items per page
+    // const page = req.query.page || 1; // Current page (default to 1)
     try {
         var search = "";
     if(req.query.search)
     {
         search = req.query.search;
     }
-        const totalCount = await Category.countDocuments();
-        const totalPages = Math.ceil(totalCount / perPage);
+        // const totalCount = await Category.countDocuments();
+        // const totalPages = Math.ceil(totalCount / perPage);
 
         const result = await Category.find({
             $or:[
@@ -34,16 +34,16 @@ const showCategory = async (req, res) => {
                 }
             ]
         })
-            .skip((page - 1) * perPage)
-            .limit(perPage)
-            .exec();
+            // .skip((page - 1) * perPage)
+            // .limit(perPage)
+            // .exec();
 
         if (result) {
             res.render('adminCategory', {
                 categorys: result,
                 search:search,
-                totalPages:totalPages,
-                currentPage: page
+                // totalPages:totalPages,
+                // currentPage: page
             });
         }
     }
@@ -98,10 +98,28 @@ const editCategory = async (req, res) => {
 
 const viewArticle = async (req, res) => {
     try {
+        var search = "";
+        if(req.query.search)
+        {
+            search = req.query.search;
+        }
+        
         const categorys = await Category.find();
-        const articles = await Article.find().populate('category_id', 'name');
+        const articles = await Article.find({
+            $or:[
+                {
+                    title:{$regex:'.*' + search+'.*',$options:'i'},
+                },
+                {
+                    author:{$regex:'.*' + search+'.*',$options:'i'},
+                },
+                {
+                    description:{$regex:'.*' + search+'.*',$options:'i'},
+                }
+            ]
+        }).populate('category_id', 'name');
         if (categorys) {
-            res.render('adminArticle', { categorys: categorys, articles: articles });
+            res.render('adminArticle', { categorys: categorys, articles: articles,search:search });
         }
     }
     catch (err) {

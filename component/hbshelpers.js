@@ -1,32 +1,32 @@
-const { options } = require("just-handlebars-helpers/lib/helpers/html");
+// const { options } = require("just-handlebars-helpers/lib/helpers/html");
 
-var helper = {
-    if: (v1, op, v2, options)=>{
-        switch(op)
-        {
-            case '==':
-                return (v1 == v2) ? options.fn(this) : options.inverse(this);
-            case '!=':
-                return (v1 != v2) ? options.fn(this) : options.inverse(this);
-            case '<':
-                return (v1 < v2) ? options.fn(this) : options.inverse(this);
-            case '<=':
-                return (v1 <= v2) ? options.fn(this) : options.inverse(this);
-            case '>':
-                return (v1 > v2) ? options.fn(this) : options.inverse(this);
-            case '>=':
-                return (v1 >= v2) ? options.fn(this) : options.inverse(this);
-            case '&&':
-                return (v1 && v2) ? options.fn(this) : options.inverse(this);
-            case '||':
-                return (v1 || v2) ? options.fn(this) : options.inverse(this);
-            default:
-                return options.inverse(this);
-        }
-    }
-}
+// var helper = {
+//     if: (v1, op, v2, options)=>{
+//         switch(op)
+//         {
+//             case '==':
+//                 return (v1 == v2) ? options.fn(this) : options.inverse(this);
+//             case '!=':
+//                 return (v1 != v2) ? options.fn(this) : options.inverse(this);
+//             case '<':
+//                 return (v1 < v2) ? options.fn(this) : options.inverse(this);
+//             case '<=':
+//                 return (v1 <= v2) ? options.fn(this) : options.inverse(this);
+//             case '>':
+//                 return (v1 > v2) ? options.fn(this) : options.inverse(this);
+//             case '>=':
+//                 return (v1 >= v2) ? options.fn(this) : options.inverse(this);
+//             case '&&':
+//                 return (v1 && v2) ? options.fn(this) : options.inverse(this);
+//             case '||':
+//                 return (v1 || v2) ? options.fn(this) : options.inverse(this);
+//             default:
+//                 return options.inverse(this);
+//         }
+//     }
+// }
 
-module.exports = helper;
+// module.exports = helper;
 
 // const hbs = require('hbs');
 

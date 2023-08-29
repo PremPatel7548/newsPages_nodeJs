@@ -58,13 +58,14 @@
       </div>
     </div>
     
-    <div class="row">
+    <div class="row" style="margin-left:200px">
     <form action="/Category" method="get" style="margin-left:20%">
-      <input type="text" name="search" id="search" value="{{search}}">
+      <input type="text" style="width: 200px;border:1px solid black" name="search" id="search" value="{{search}}">
       <button type="submit" class="btn btn-success">Search</button>
     </form>
     <a href="/Category" style="margin-left: 10px;margin-top: 7px;"><button class="btn btn-primary">All Data</button></a>
     </div>
+    <br><br>
     <center>
       <table class="table col-md-10" id="tblData">
         <thead>
@@ -91,19 +92,19 @@
   </table>
   <br>
 
-<div class="pagination">
-  {{#if (gt totalPages 1)}}
+{{!-- <div class="pagination"> --}}
+  {{!-- {{#if (gt totalPages 1)}}
     {{#if (gt currentPage 1)}}
       <a href="/Category?page={{sub currentPage 1}}">Previous</a>
-    {{/if}}
+    {{/if}} --}}
     
     {{!-- <span>Page {{currentPage}} of {{totalPages}}</span>
     
     {{#if (lt currentPage totalPages)}}
       <a href="/Category?page={{add currentPage 1}}">Next</a>
     {{/if}} --}}
-  {{/if}}
-</div>
+  {{!-- {{/if}}
+</div> --}}
 
   </center>
 
